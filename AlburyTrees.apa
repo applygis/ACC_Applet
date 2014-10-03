@@ -42,7 +42,7 @@
 						<LISTITEM value="Redundant" text="Redundant"/>
 						<LISTITEM value="Proposed" text="Proposed"/>
 					</COMBOBOX>
-					<CHECKBOX name="chkVacant" x="84" y="126" width="101" height="12" defaultvalue="1" onclick="chk_Vacant_onClick ( ThisEvent.Object );" caption="VACANT" tooltip="" tabstop="true" border="false" alignment="left"/>
+					<CHECKBOX name="chkVacant" x="83" y="121" width="101" height="12" defaultvalue="1" onclick="chk_Vacant_onClick ( ThisEvent.Object );" caption="VACANT" tooltip="" tabstop="true" border="false" alignment="left"/>
 				</PAGE>
 				<PAGE name="PAGE2" caption="Current Audit 2" onvalidate="page2_onValidate( ThisEvent )" onsetactive="NewTree_Page2_SetActive( ThisEvent.Object );" fontsize="12">
 					<EDIT name="tbx_height" x="92" y="2" width="57" height="14" defaultvalue="0" tooltip="" group="true" tabstop="true" border="true" sip="true"/>

@@ -955,32 +955,54 @@ function NewTree_Page2_SetActive( oPage ){
 		oPage.Controls("tbx_height").value = 0;
 		oPage.Controls("txt_dbh").value = 0;
 		oPage.Controls("tb_width").value = 0;
-
 		//oPage.Controls("cb_WorkC").ListIndex = 5;
+		oPage.Controls("cbx_fp").ListIndex = 5;
+		oPage.Controls("cbx_fs").ListIndex = 5;
+		//oPage.Controls("cbx_to").ListIndex = 21;
+		oPage.Controls("cbx_p").ListIndex = 4;
+		oPage.Controls("tbx_rs").text = 0;
 
 		oPage.Controls("cbx_TA").enabled = false;
 		oPage.Controls("cbx_TH").enabled = false;
 		oPage.Controls("cbx_ule").enabled = false;
 		oPage.Controls("cbx_TS").enabled = false;
+		oPage.Controls("cbx_fs").enabled = false;
+		oPage.Controls("cbx_fp").enabled = false;
+		oPage.Controls("cbx_fs").enabled = false;
+		oPage.Controls("cbx_fp").enabled = false;
 
-		oPage.Controls("cbx_fp").ListIndex = 5;
-		oPage.Controls("cbx_fs").ListIndex = 3;
-		//oPage.Controls("cbx_to").ListIndex = 21;
-		oPage.Controls("cbx_p").ListIndex = 4;
+		oPage.Controls("tbx_height").enabled = false;
+		oPage.Controls("txt_dbh").enabled = false;
+		oPage.Controls("tb_width").enabled = false;
+		oPage.Controls("cb_WorkC").enabled = false;
+		oPage.Controls("cbx_works").enabled = false;
+		oPage.Controls("tbx_works").enabled = false;
 
-		oPage.Controls("tbx_rs").text = 0;
 		//Console.print ( oPage.Controls("cbx_fs").ListIndex );
 	}
 	else{
+		oPage.Controls("cbx_TA").ListIndex = 4;
+		oPage.Controls("cbx_TH").ListIndex = 2;
+		oPage.Controls("cbx_ule").ListIndex = 2; // 0;
+		oPage.Controls("cbx_TS").ListIndex = 1;
+		oPage.Controls("cbx_fp").ListIndex = 5;
+		oPage.Controls("cbx_fs").ListIndex = 5;
+
 		oPage.Controls("cbx_TA").enabled = true;
 		oPage.Controls("cbx_TH").enabled = true;
 		oPage.Controls("cbx_ule").enabled = true;
 		oPage.Controls("cbx_TS").enabled = true;
+		oPage.Controls("cbx_fs").enabled = true;
+		oPage.Controls("cbx_fp").enabled = true;
 
-		oPage.Controls("cbx_TA").ListIndex = 4;
-		oPage.Controls("cbx_TH").ListIndex = 2;
-		oPage.Controls("cbx_ule").ListIndex = 0;
-		oPage.Controls("cbx_TS").ListIndex = 1;
+		oPage.Controls("tbx_height").enabled = true;
+		oPage.Controls("txt_dbh").enabled = true;
+		oPage.Controls("tb_width").enabled = true;
+		oPage.Controls("cb_WorkC").enabled = true;
+		oPage.Controls("cbx_works").enabled = true;
+		oPage.Controls("tbx_works").enabled = true;
+
+
 	}
 	
 }
@@ -1050,7 +1072,7 @@ function NewTree_onOK( oForm ){
 		AddToLog( "Error finding Botanical code. Aprrox.line 960", sSQL );
 		Application.MessageBox("Error Adding details to the Audit table. ln 976: : \n" + sSQL); // ex.Message);
 	}
-	try{
+	/*try{
 		sSQL = "INSERT INTO MAINTENANCE (ASSET_ID,OPERATOR,CANOPY_LIFT,WEIGHT_REDUCTION,FORMATIVE_PRUNE,STRUCTURAL_PRUNE,PROPERTY_ASSET_CLEARANCE,DEAD_WOOD,MISTLETOE_REMOVAL,REMOVE,LV_WIRE_CL,HV_WIRE_CL,BROKENBRANCH,EPICORMICREMOVAL,MULCHREQUIRED,EXCLUDETARGET,TREESTAKEREMOVAL,INSTALLSTAKES,IRRIGATION,ROOTBALLMAINTENANCE,VISIBILITY,ABC_CLEARANCE,SERVICE_WIRE_CLEARANCE,HABITAT_PRUNE,REPLANT_LIST,COMMENTS,AXF_TIMESTAMP,AXF_STATUS) ";
 		var oPage1C = oForm.Pages( "PAGE1" ).Controls;
 		var oPage2C = oForm.Pages( "PAGE2" ).Controls;
@@ -1189,7 +1211,7 @@ function NewTree_onOK( oForm ){
 		Application.MessageBox (sSQL);
 		//MessageBox("Error on ln 1100: " + ex.Message);
 		AddToLog( "Error on ln 1100: ", sSQL );
-	}
+	}*/
 
 	if ( oForm.Pages("PAGE1").Controls("cb_CURRENT_ST").Value == "Proposed"){
 		try{
@@ -2278,6 +2300,19 @@ function page1_onValidate( oEvent ){
 	if ( !g_bLoading ){
 		var oPage1C = oEvent.Object;
 
+	/*	if ( oPage1C( "cb_CURRENT_ST" ).Text == "Current" && oPage1C( "chkVacant" ).Checked){
+				oEvent.MessageText =  "You CANNOT have vacant and Current status";
+				oEvent.Result = false;
+				return false;
+		}
+		if ( oPage1C( "cb_CURRENT_ST" ).Text == "Proposed"){
+			if ( !oPage1C( "chkVacant" ).Checked ){
+				oEvent.MessageText =  "You MUST have vacant and Proposed status";
+				oEvent.Result = false;
+				return false;
+			}
+		}
+	*/
 		if ( oPage1C( "cb_streetPlanted" ).Visible  ){		
 			if ( oPage1C( "cb_streetPlanted" ).ListIndex < 0 ){
 				oEvent.MessageText =  "Please Select Street Planted";
