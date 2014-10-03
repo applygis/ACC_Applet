@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ArcPad>
+	<APPLET name="AlburyTrees">
+		<FORMS>
+			<FORM name="NewTree" caption="New Tree" width="450" height="290" onload="NewTree_onLoad( ThisEvent.Object );" onunload="NewTree_onUnLoad( ThisEvent.Object )" onok="NewTree_onOK( ThisEvent.Object )" fontsize="12">
+				<PAGE name="PAGE1" caption="Current Audit 1" onvalidate="page1_onValidate( ThisEvent )" onkillactive="NewTree_Page1_KillActive( ThisEvent.Object );">
+					<COMBOBOX name="cb_streetPlanted" y="4" width="222" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" x="223" tooltip="" tabstop="true" border="false" sip="false" limittolist="false"/>
+					<EDIT name="tb_streetPlanted" x="81" y="4" width="157" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false"/>
+					<EDIT name="tb_HouseNum" x="81" y="20" width="53" height="14" defaultvalue="" tooltip="" tabstop="true" border="true"/>
+					<LABEL name="Label1" x="1" y="4" width="84" height="14" caption="Street Planted" tooltip="" group="true" border="false"/>
+					<LABEL name="Label2" x="1" y="23" width="74" height="14" caption="Street Address" tooltip="" group="true" border="false"/>
+					<COMBOBOX name="cb_StreetN" x="275" y="21" width="169" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" limittolist="false"/>
+					<EDIT name="tb_StreetN" x="137" y="20" width="135" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false"/>
+					<EDIT name="cb_Zone" x="81" y="39" width="220" height="14" defaultvalue="" listtable="LookUpTables/LUT_ZONE.DBF" listvaluefield="FIELD1" listtextfield="FIELD1" tooltip="" tabstop="false" border="true" readonly="true" sip="false"/>
+					<LABEL name="Label3" x="1" y="42" width="34" height="14" caption="Zone" tooltip="" group="true" border="false"/>
+					<COMBOBOX name="cb_genus_spec" x="1" y="143" width="150" height="13" defaultvalue="" listtable="LookUpTables/GenusSpecies.DBF" listvaluefield="GENUS" listtextfield="GENUS" onselchange="cb_genus_spec_onSelchange( ThisEvent.Object )" tooltip="" tabstop="true" border="false" readonly="true" sip="false"/>
+					<COMBOBOX name="cb_Botanical" x="1" y="177" width="220" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" onselchange="cb_Botanical_onSelChange( ThisEvent.Object );" tooltip="" tabstop="true" border="false" readonly="true" sip="false" sort="false"/>
+					<CHECKBOX name="cb_Heritage" x="321" y="220" width="58" height="14" defaultvalue="false" caption="Heritage Tree" tooltip="" tabstop="true" border="false" alignment="left"/>
+					<COMBOBOX name="cb_street_p" x="83" y="69" width="150" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" sort="false">
+						<LISTITEM value="New Tree" text="Park Tree"/>
+						<LISTITEM value="FacilityTree" text="Facility Tree"/>
+						<LISTITEM value="Street Tree" text="Street Tree"/>
+					</COMBOBOX>
+					<COMBOBOX name="cb_PowerLine" x="280" y="201" width="150" height="13" defaultvalue="" listtable="LookUpTables/POWERLIN.DBF" listvaluefield="POWERLINE" listtextfield="POWERLINE" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cb_inspector" x="63" y="221" width="60" height="13" defaultvalue="" listtable="LookUpTables/LUT_OPER.DBF" listvaluefield="OP_VALUE" listtextfield="OP" enabled="false" onselchange="cb_inspector_onSelChange( ThisEvent.Object )" tooltip="" tabstop="true" border="false" sip="false" limittolist="false"/>
+					<BUTTON name="btn_Next" x="158" y="260" width="106" height="27" onclick="goToPage( ThisEvent, &quot;PAGE2&quot; )" caption="Next &gt;&gt;" tooltip="" tabstop="true" border="false" alignment="center"/>
+					<LABEL name="lbl_genus" x="3" y="128" width="75" height="14" caption="Genus Name" tooltip="" group="true" border="false"/>
+					<EDIT name="tb_CommonN" x="223" y="177" width="220" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" readonly="true" sip="false"/>
+					<LABEL name="Label4" x="1" y="162" width="106" height="14" caption="Botanical Name" tooltip="" group="true" border="false"/>
+					<LABEL name="Label5" x="223" y="160" width="90" height="14" caption="Common Name" tooltip="" group="true" border="false"/>
+					<LABEL name="Label22" x="1" y="222" width="61" height="14" caption="Inspector" tooltip="" group="true" border="false"/>
+					<EDIT name="tbx_id" x="40" y="245" width="80" height="14" defaultvalue="" tooltip="" group="true" tabstop="false" border="true" readonly="true"/>
+					<LABEL name="Label11" x="1" y="244" width="26" height="14" caption="ID" tooltip="" group="true" border="false"/>
+					<EDIT name="tb_Origin" x="58" y="198" width="139" height="14" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="true" readonly="true" sip="false"/>
+					<LABEL name="Label6" x="2" y="199" width="41" height="14" caption="Origin" tooltip="" group="true" border="false"/>
+					<EDIT name="tb_InspectorType" x="145" y="220" width="140" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" readonly="true" sip="false"/>
+					<LABEL name="Label7" y="201" width="68" height="14" x="210" caption="PowerLine" tooltip="" group="true" border="false" fontsize="12"/>
+					<LABEL name="Label9" y="71" width="82" height="14" x="1" caption="Tree Location" tooltip="" group="true" border="false"/>
+					<LABEL name="Label8" x="1" y="98" width="77" height="14" caption="Asset Status" tooltip="" group="true" border="false"/>
+					<COMBOBOX name="cb_CURRENT_ST" x="84" y="97" width="150" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" onselchange="cbo_AssetStatus_onSelChange( ThisEvent.Object )" tooltip="" tabstop="true" border="false" sip="false" sort="false">
+						<LISTITEM value="Current" text="Current"/>
+						<LISTITEM value="Redundant" text="Redundant"/>
+						<LISTITEM value="Proposed" text="Proposed"/>
+					</COMBOBOX>
+					<CHECKBOX name="chkVacant" x="84" y="126" width="101" height="12" defaultvalue="1" onclick="chk_Vacant_onClick ( ThisEvent.Object );" caption="VACANT" tooltip="" tabstop="true" border="false" alignment="left"/>
+				</PAGE>
+				<PAGE name="PAGE2" caption="Current Audit 2" onvalidate="page2_onValidate( ThisEvent )" onsetactive="NewTree_Page2_SetActive( ThisEvent.Object );" fontsize="12">
+					<EDIT name="tbx_height" x="92" y="2" width="57" height="14" defaultvalue="0" tooltip="" group="true" tabstop="true" border="true" sip="true"/>
+					<EDIT name="txt_dbh" x="231" y="2" width="25" height="14" defaultvalue="0" tooltip="" tabstop="true" border="true" sip="true"/>
+					<EDIT name="tb_Width" x="375" y="2" width="57" height="14" defaultvalue="0" tooltip="" tabstop="true" border="true" sip="true" minvalue="0" maxvalue="50"/>
+					<COMBOBOX name="cbx_TA" x="63" y="25" width="140" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" onselchange="cbxTA_onSelChange( ThisEvent.Object )" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cbx_TH" x="287" y="25" width="140" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cbx_ule" x="63" y="46" width="140" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cbx_ts" x="287" y="46" width="140" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cb_WorkC" x="63" y="71" width="109" height="13" defaultvalue="" listtable="LookUpTables/LUTWORKC.DBF" listvaluefield="WORKSCA_VA" listtextfield="WORKSCA_VA" onselchange="cbWorkC_onSelChange( ThisEvent.Object )" tooltip="" tabstop="true" border="false" sip="false"/>
+					<COMBOBOX name="cbx_works" x="115" y="95" width="220" height="13" defaultvalue="" listtable="LookUpTables/LUT_WORK.DBF" listvaluefield="FIELD1" listtextfield="FIELD1" onselchange="cbWorks_onSelChange( ThisEvent.Object )" tooltip="" group="true" tabstop="true" border="false" sip="false"/>
+					<COMBOBOX name="cbx_fp" y="185" width="80" height="11" defaultvalue="" listtable="" listvaluefield="" listtextfield="" onselchange="RiskScoreChange( ThisEvent.Object )" x="1" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cbx_fs" x="119" y="185" width="150" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" onselchange="RiskScoreChange( ThisEvent.Object )" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cbx_to" y="219" width="220" height="11" defaultvalue="" listtable="" listvaluefield="" listtextfield="" onselchange="RiskScoreChange( ThisEvent.Object )" x="1" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX name="cb_NatureStrip" x="288" y="242" width="150" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<COMBOBOX onselchange="" name="cbx_p" x="69" y="242" width="130" height="14" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<LABEL name="lbl_p" y="242" width="67" height="14" caption="Priority" tooltip="" group="true" border="false"/>
+					<LABEL name="lbl_w" x="1" y="98" width="101" height="14" caption="Works Required" tooltip="" group="true" border="false"/>
+					<EDIT name="tbx_rs" x="349" y="183" width="80" height="14" defaultvalue="0" tooltip="" tabstop="false" border="true" readonly="true" sip="false"/>
+					<EDIT name="tbx_works" y="113" width="431" height="31" defaultvalue="" onsetfocus="CommonDialog.ShowSIP( false )" x="2" tooltip="" group="true" tabstop="false" border="true" sip="false" multiline="true"/>
+					<LABEL name="Label1" x="279" y="4" width="95" height="14" caption="Canopy Width (m)" tooltip="" group="true" border="false"/>
+					<LABEL name="lbl_height" x="1" y="3" width="89" height="18" caption="Tree Height (m)" tooltip="" group="true" border="false"/>
+					<LABEL name="lbl_DBH" x="172" y="4" width="59" height="14" caption="DBH (mm)" tooltip="" group="true" border="false"/>
+					<LABEL name="lbl_TH" x="214" y="25" width="62" height="14" caption="Tree Health" tooltip="" group="true" border="false"/>
+					<LABEL name="lbl_ULE" x="1" y="46" width="62" height="28" caption="Useful Life Expectancy" tooltip="" group="true" border="false"/>
+					<LABEL name="lbl_age" x="1" y="25" width="58" height="14" caption="Tree Age" tooltip="" group="true" border="false"/>
+					<LABEL name="lbl_str" x="215" y="46" width="72" height="14" caption="Tree Structure" tooltip="" group="true" border="false"/>
+					<LABEL name="Label2" x="1" y="73" width="51" height="25" caption="Works Category" tooltip="" group="true" border="false"/>
+					<LABEL name="Label3" x="223" y="242" width="61" height="14" caption="Nature Strip" tooltip="" group="true" border="false"/>
+					<BUTTON name="btn_Next" x="213" y="260" width="106" height="27" onclick="goToPage( ThisEvent, &quot;PAGE3&quot; )" caption="Next &gt;&gt;" tooltip="" tabstop="true" border="false" alignment="center"/>
+					<BUTTON name="btn_Back" x="98" y="260" width="106" height="27" onclick="goToPage( ThisEvent, &quot;PAGE1&quot; )" caption="&lt;&lt; Back" tooltip="" tabstop="true" border="false" alignment="center"/>
+					<LABEL name="Label4" x="1" y="162" width="122" height="20" caption="Probability of failure " tooltip="" group="true" border="false"/>
+					<LABEL name="Label5" x="1" y="202" width="50" height="14" caption="Target range" tooltip="" group="true" border="false"/>
+					<LABEL name="Label6" x="121" y="162" width="127" height="23" caption="Size of part most likely to impact target" tooltip="" group="true" border="false"/>
+					<LABEL name="Label7" x="349" y="162" width="50" height="14" caption="Risk Score" tooltip="" group="true" border="false"/>
+					<LABEL name="Label8" x="270" y="178" width="53" height="28" caption="=" tooltip="" group="true" border="false" fontsize="27" alignment="center"/>
+				</PAGE>
+				<PAGE name="PAGE3" caption="Current Audit 3" sip="false" onvalidate="">
+					<EDIT name="tb_Comments" y="134" width="428" height="118" defaultvalue="" x="1" tooltip="" tabstop="true" border="true" sip="false" multiline="true" vscroll="true"/>
+					<LABEL name="Label1" x="3" y="116" width="50" height="14" caption="Comments" tooltip="" group="true" border="false"/>
+					<COMBOBOX name="cb_Defects" x="87" y="22" width="200" height="13" defaultvalue="" listtable="LookUpTables/LUTDEFEC.DBF" listvaluefield="DEFECTS_TE" listtextfield="DEFECTS_TE" onselchange="cb_Defects_onselChange( ThisEvent.Object )" tooltip="" tabstop="true" border="false" sip="false" sort="false"/>
+					<EDIT name="tb_defects" y="43" width="436" height="67" defaultvalue="&quot;None&quot;" x="3" tooltip="" tabstop="true" border="true" sip="false" multiline="true"/>
+					<LABEL name="Label2" x="1" y="22" width="65" height="14" caption="Defects" tooltip="" group="true" border="false"/>
+					<DATETIME name="dp_DateVisited" x="87" y="2" width="90" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false" allownulls="false"/>
+					<LABEL name="Label3" x="1" y="2" width="73" height="14" caption="Date Visited" tooltip="" group="true" border="false"/>
+					<BUTTON name="btn_Back" x="113" y="260" width="106" height="27" onclick="goToPage( ThisEvent, &quot;PAGE2&quot; )" caption="&lt;&lt; Back" tooltip="" tabstop="true" border="false" alignment="center"/>
+					<BUTTON name="btn_Next" x="225" y="260" width="106" height="27" onclick="goToPage( ThisEvent, &quot;PAGE5&quot; )" caption="Next &gt;&gt;" tooltip="" tabstop="true" border="false" alignment="center"/>
+				</PAGE>
+				<PAGE name="PAGE4" caption="List" sip="false" fontsize="12">
+					<LISTBOX name="lb_Audits" x="16" y="10" width="426" height="240" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="true" sort="false" vscroll="false"/>
+					<BUTTON name="btn_Change" x="164" y="260" width="106" height="27" onclick="btn_Change_onClick( ThisEvent.Object )" caption="Change" tooltip="" tabstop="true" border="false" alignment="center"/>
+				</PAGE>
+				<PAGE name="PAGE5" caption="Picture" sip="false" onsetactive="OnPagePicture_SetActive();" fontsize="12">
+					<IMAGEBOX name="Image1" x="3" y="2" width="439" height="247" defaultvalue="" clickaction="auto" tooltip="" group="true" tabstop="false" border="true"/>
+				</PAGE>
+			</FORM>
+			<FORM name="NewBeetle" caption="New ELB" width="450" height="290" onload="NewBeetle_onLoad( ThisEvent.Object )" onunload="//NewBeetle_onUnLoad( ThisEvent.Object )" onok="//NewBeetle_onOK( ThisEvent.Object )" tabsvisible="false" fontsize="12">
+				<PAGE name="tp_ELB" caption="ELB Inspection" sip="false" backgroundcolor="128,255,255" onvalidate="page_inspector_onValidate( ThisEvent );" fontsize="12">
+					<EDIT name="tb_InspectorType" x="242" y="2" width="73" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" readonly="true" sip="false">
+					</EDIT>
+					<COMBOBOX name="cb_inspector" x="123" y="3" width="80" height="13" defaultvalue="" listtable="LUT_OPER.DBF" listvaluefield="OP_VALUE" listtextfield="OP" enabled="false" onselchange="cb_inspector_onSelChange( ThisEvent.Object )" onvalidate="page_inspector_onValidate( ThisEvent );" tooltip="" tabstop="true" border="false" sip="false" limittolist="false">
+					</COMBOBOX>
+					<LABEL name="Label22" x="1" y="3" width="72" height="18" caption="Inspector" tooltip="" group="true" border="false">
+					</LABEL>
+					<EDIT name="tb_Comments" x="3" width="431" height="130" defaultvalue="" y="122" tooltip="" tabstop="true" border="true" sip="false" multiline="true" vscroll="true">
+					</EDIT>
+					<COMBOBOX name="cb_InfesLevel" x="138" width="220" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" y="29" tooltip="" tabstop="true" border="false" sip="false" limittolist="false" sort="false">
+						<LISTITEM value="Nil" text="Nil">
+						</LISTITEM>
+						<LISTITEM value="Low" text="Low">
+						</LISTITEM>
+						<LISTITEM value="Low/Medium" text="Low/Medium">
+						</LISTITEM>
+						<LISTITEM value="Medium" text="Medium">
+						</LISTITEM>
+						<LISTITEM value="Medium/High" text="Medium/High">
+						</LISTITEM>
+						<LISTITEM value="High" text="High">
+						</LISTITEM>
+					</COMBOBOX>
+					<COMBOBOX name="cb_RecTreatment" x="139" y="50" width="220" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" limittolist="false" sort="false">
+						<LISTITEM value="Soil Injection" text="Soil Injection">
+						</LISTITEM>
+						<LISTITEM value="Trunk banding" text="Trunk banding">
+						</LISTITEM>
+						<LISTITEM value="Canopy spray" text="Canopy spray">
+						</LISTITEM>
+						<LISTITEM value="Stem injection" text="Stem injection">
+						</LISTITEM>
+					</COMBOBOX>
+					<BUTTON name="btn_Update" x="182" y="257" width="106" height="27" onclick="ELBInspectUpdate_onClick( ThisEvent.Object )" caption="Update" tooltip="" tabstop="true" border="false" alignment="center">
+					</BUTTON>
+					<LABEL name="Label1" width="69" height="18" y="102" x="3" caption="Comments:" tooltip="" group="true" border="false">
+					</LABEL>
+					<LABEL name="Label2" width="117" height="16" y="30" x="1" caption="Infestation Level" tooltip="" group="true" border="false">
+					</LABEL>
+					<LABEL name="lbl_date" x="1" y="80" width="70" height="12" caption="Date Inspected" tooltip="" group="true" border="false" fontsize="12">
+					</LABEL>
+					<DATETIME name="dp_InspectDate" x="129" y="78" width="74" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false" allownulls="false">
+					</DATETIME>
+					<LABEL name="Label3" y="49" width="133" height="14" x="1" caption="Recommended Treatment" tooltip="" group="true" border="false">
+					</LABEL>
+				</PAGE>
+			</FORM>
+			<FORM name="NewRootPrune" caption="New Root Pruning" width="450" height="290" tabsvisible="false" onload="NewRootPrune_onLoad( ThisEvent.Object )">
+				<PAGE name="tp_RootPrune" caption="Root Prune Inspection" sip="false" color="Black" fontsize="12">
+					<LABEL name="Label2" x="1" y="28" width="90" height="14" caption="Date Inspected" tooltip="" group="true" border="false">
+					</LABEL>
+					<DATETIME name="dp_Inspected" x="170" y="26" width="89" height="17" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false" allownulls="false">
+					</DATETIME>
+					<LABEL name="Label3" x="5" y="81" width="217" height="18" caption="Recomended Treatment Method:" tooltip="" group="true" border="false">
+					</LABEL>
+					<COMBOBOX name="cb_Method" y="101" width="220" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" x="3" tooltip="" tabstop="true" border="false" sip="false" limittolist="false" sort="false">
+						<LISTITEM value="Mechanical" text="Mechanical">
+						</LISTITEM>
+						<LISTITEM value="Hydro Excavation" text="Hydro Excavation">
+						</LISTITEM>
+					</COMBOBOX>
+					<LABEL name="Label4" x="3" y="122" width="90" height="18" caption="Comments:" tooltip="" group="true" border="false">
+					</LABEL>
+					<EDIT name="tb_Comments" y="146" width="431" height="100" defaultvalue="" x="5" tooltip="" tabstop="true" border="true" sip="false" multiline="true" vscroll="true">
+					</EDIT>
+					<BUTTON name="btn_Update" x="161" y="256" width="106" height="27" onclick="RootInspection_onClick( ThisEvent.Object )" caption="Update" tooltip="" tabstop="true" border="false" alignment="center">
+					</BUTTON>
+					<CHECKBOX name="cb_RootBarrier" x="3" y="51" width="218" height="18" defaultvalue="" caption="Install Root Barrier Box" tooltip="" tabstop="true" border="false" alignment="left">
+					</CHECKBOX>
+					<EDIT name="tb_InspectorType" x="169" y="1" width="62" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" readonly="true" sip="false">
+					</EDIT>
+					<LABEL name="Label22" x="1" y="3" width="69" height="18" caption="Inspector" tooltip="" group="true" border="false">
+					</LABEL>
+					<COMBOBOX name="cb_inspector" x="71" y="2" width="80" height="13" defaultvalue="" listtable="LUT_OPER.DBF" listvaluefield="OP_VALUE" listtextfield="OP" enabled="false" onselchange="cb_inspector_onSelChange( ThisEvent.Object )" onvalidate="page_inspector_onValidate( ThisEvent );" tooltip="" tabstop="true" border="false" sip="false" limittolist="false">
+					</COMBOBOX>
+				</PAGE>
+			</FORM>
+			<FORM name="BeetleWorks" caption="ELB Works" width="450" height="290" tabsvisible="false" onload="NewBeetle_onLoad( ThisEvent.Object )" onunload="BeetleRPWorks_onUnLoad ( ThisEvent.Object );">
+				<PAGE name="tp_ELBWorks" caption="ELB Works" sip="false" backgroundcolor="128,128,255" fontsize="12">
+					<EDIT name="tb_InspectorType" x="155" y="1" width="65" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" readonly="true" sip="false">
+					</EDIT>
+					<COMBOBOX name="cb_inspector" x="61" y="2" width="80" height="13" defaultvalue="" listtable="LUT_OPER.DBF" listvaluefield="OP_VALUE" listtextfield="OP" enabled="false" onselchange="cb_inspector_onSelChange( ThisEvent.Object )" onvalidate="page_inspector_onValidate( ThisEvent );" tooltip="" tabstop="true" border="false" sip="false" limittolist="false">
+					</COMBOBOX>
+					<LABEL name="Label22" x="1" y="3" width="49" height="16" caption="Inspector" tooltip="" group="true" border="false">
+					</LABEL>
+					<LABEL name="Label4" y="31" width="87" height="14" x="1" caption="Treatment Method" tooltip="" group="true" border="false">
+					</LABEL>
+					<COMBOBOX name="cb_TretMethod" x="91" y="29" width="220" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" limittolist="false" sort="false">
+						<LISTITEM value="Soil Injection" text="Soil Injection">
+						</LISTITEM>
+						<LISTITEM value="Trunk banding" text="Trunk banding">
+						</LISTITEM>
+						<LISTITEM value="Canopy spray" text="Canopy spray">
+						</LISTITEM>
+						<LISTITEM value="Stem injection" text="Stem injection">
+						</LISTITEM>
+					</COMBOBOX>
+					<LABEL name="Label5" y="55" width="75" height="14" x="1" caption="Chemical Type" tooltip="" group="true" border="false">
+					</LABEL>
+					<COMBOBOX name="cb_ChemType" x="91" y="54" width="220" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" limittolist="false">
+						<LISTITEM value="Carbaryl" text="Carbaryl">
+						</LISTITEM>
+						<LISTITEM value="Entrust" text="Entrust">
+						</LISTITEM>
+						<LISTITEM value="Confidor" text="Confidor">
+						</LISTITEM>
+						<LISTITEM value="Novodor" text="Novodor">
+						</LISTITEM>
+						<LISTITEM value="Calypso" text="Calypso">
+						</LISTITEM>
+					</COMBOBOX>
+					<LABEL name="Label2" y="129" width="69" height="12" x="1" caption="Date Completed" tooltip="" group="true" border="false" fontsize="12">
+					</LABEL>
+					<DATETIME name="dp_DateCompleated" x="89" y="126" width="90" height="17" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false" fontsize="12" allownulls="false">
+					</DATETIME>
+					<LABEL name="Label3" x="1" y="80" width="47" height="14" caption="Volume:" tooltip="" group="true" border="false">
+					</LABEL>
+					<LABEL name="Label6" x="2" y="148" width="95" height="12" caption="Comments:" tooltip="" group="true" border="false">
+					</LABEL>
+					<EDIT name="tb_Comments" y="167" width="434" height="91" defaultvalue="" x="2" tooltip="" tabstop="true" border="true" sip="false" multiline="true" vscroll="true">
+					</EDIT>
+					<BUTTON onclick="ELBWorksUpdate_onClick( ThisEvent.Object )" name="btn_Update" x="147" y="260" width="106" height="27" caption="Update" tooltip="" tabstop="true" border="false" alignment="center">
+					</BUTTON>
+					<SLIDER name="sb_Volume" x="135" y="76" width="74" height="15" defaultvalue="0" tooltip="" tabstop="false" border="false" upper="100" buddy="tbx_vol">
+					</SLIDER>
+					<LABEL name="Label7" x="1" y="103" width="64" height="14" caption="Additives:" tooltip="" group="true" border="false">
+					</LABEL>
+					<COMBOBOX name="cb_Additives" x="83" y="100" width="220" height="13" defaultvalue="" listtable="" listvaluefield="" listtextfield="" tooltip="" tabstop="true" border="false" sip="false" limittolist="false" sort="false">
+						<LISTITEM value="calcium ammonium nitrate" text="calcium ammonium nitrate">
+						</LISTITEM>
+						<LISTITEM value="seasol" text="seasol">
+						</LISTITEM>
+					</COMBOBOX>
+					<EDIT name="tbx_vol" x="60" y="77" width="55" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false">
+					</EDIT>
+				</PAGE>
+			</FORM>
+			<FORM name="RootPruneWorks" caption="Root Pruning Works" width="450" height="290" tabsvisible="false" onload="NewRootPrune_onLoad( ThisEvent.Object )" onunload="BeetleRPWorks_onUnLoad ( ThisEvent.Object );">
+				<PAGE name="tp_RootPruneWorks" caption="Root Prune Works" sip="false" fontsize="12">
+					<EDIT name="tb_InspectorType" x="180" y="2" width="78" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" readonly="true" sip="false">
+					</EDIT>
+					<COMBOBOX name="cb_inspector" x="82" y="2" width="80" height="13" defaultvalue="" listtable="LUT_OPER.DBF" listvaluefield="OP_VALUE" listtextfield="OP" enabled="false" onselchange="cb_inspector_onSelChange( ThisEvent.Object )" onvalidate="page_inspector_onValidate( ThisEvent );" tooltip="" tabstop="true" border="false" sip="false" limittolist="false">
+					</COMBOBOX>
+					<LABEL name="Label22" x="1" y="3" width="65" height="18" caption="Inspector" tooltip="" group="true" border="false">
+					</LABEL>
+					<LABEL name="Label1" width="57" height="18" x="3" y="95" caption="Comments:" tooltip="" group="true" border="false">
+					</LABEL>
+					<EDIT name="tb_Comments" x="6" y="118" width="430" height="134" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false" multiline="true" vscroll="true">
+					</EDIT>
+					<EDIT name="tb_Photo" x="271" y="26" width="149" height="14" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false">
+					</EDIT>
+					<CHECKBOX name="chk_Plan" x="205" y="50" width="80" height="18" defaultvalue="false" caption="Plan" tooltip="" tabstop="true" border="false" alignment="left">
+					</CHECKBOX>
+					<CHECKBOX name="chk_SuckerControl" x="206" y="70" width="123" height="12" defaultvalue="false" caption="Sucker Control" tooltip="" tabstop="true" border="false" alignment="left">
+					</CHECKBOX>
+					<CHECKBOX name="chk_RootBarrier" x="3" y="52" width="127" height="12" defaultvalue="false" caption="Root Deflector" tooltip="" tabstop="true" border="false" alignment="left">
+					</CHECKBOX>
+					<DATETIME name="date_Pruned" x="83" y="26" width="93" height="17" defaultvalue="" tooltip="" tabstop="true" border="true" sip="false" allownulls="false">
+					</DATETIME>
+					<LABEL name="Label2" y="26" width="70" height="18" x="183" caption="Photo:" tooltip="" group="true" border="false">
+					</LABEL>
+					<BUTTON name="btn_ManitenanceUpdate" x="160" y="257" width="106" height="27" onclick="RootWorks_onClick( ThisEvent.Object )" caption="Update" tooltip="" tabstop="true" border="false" alignment="center">
+					</BUTTON>
+					<LABEL name="Label3" x="1" y="28" width="77" height="18" caption="Date Pruned" tooltip="" group="true" border="false">
+					</LABEL>
+					<CHECKBOX name="chk_SurfaceRootRemove" x="4" y="69" width="160" height="12" defaultvalue="false" caption="Surface Root Removal" tooltip="" tabstop="true" border="false" alignment="left">
+					</CHECKBOX>
+				</PAGE>
+			</FORM>
+		</FORMS>
+		<TOOLBARS>
+			<TOOLBAR name="AlburyTrees" caption="Albury Trees" visible="true" image="Tree3.ico">
+				<TOOLBUTTON name="btn_NewTree" shortcut="" image="@modedrawpoint" onpointerdown="btnNewTree_OnPointerDown( ThisEvent.Object )" tooltip="Create New Site/Asset" prompt="Create New Site/Asset">
+					<MENUITEM onclick="btn_GPSNew( ThisEvent.Object )" name="btn_GPSNew" shortcut="" image="@addgpspoint" caption="New Asset via GPS Location" prompt="New Asset via GPS Location"/>
+				</TOOLBUTTON>
+				<TOOLBUTTON name="btn_AuditTree" shortcut="" image="$hammer" onpointerdown="btn_AuditTree_onPointerDown( ThisEvent.Object );" tooltip="Maintenance/Update Info" prompt="Maintenance/Update Info">
+					<MENUITEM onclick="btn_GPSAudit( ThisEvent.Object )" name="btn_GPSAudit" shortcut="" image="@addgpspoint" caption="Audit Asset via GPS Location" prompt="Audit Asset via GPS Location"/>
+				</TOOLBUTTON>
+				<TOOLBUTTON name="btn_ChangeDetails" shortcut="" image="@toggleedit" onpointerdown="btn_ChangeDetails_onPointerDown( ThisEvent.Object )" tooltip="Edit Asset Information" prompt="Edit Asset Information">
+					<MENUITEM onclick="btn_GPSChange( ThisEvent.Object )" name="btn_GPSChange" shortcut="" image="@addgpspoint" caption="Change Audit via GPS Location" prompt="Change Audit via GPS Location"/>
+				</TOOLBUTTON>
+				<TOOLBUTTON name="btn_NewBeetle" shortcut="" image="@gpsdebug" onpointerdown="btnNewBeetle_OnPointerDown( ThisEvent.Object )" prompt="Beetle Inspection">
+					<MENUITEM name="btn_ELBWorks" shortcut="" image="$pennote1" onpointerdown="btnBeetleWorks_OnPointerDown( ThisEvent.Object )" caption=""/>
+				</TOOLBUTTON>
+				<TOOLBUTTON name="btn_NewRootPrune" shortcut="" image="@rangefinderenable" onpointerdown="btnNewRootPrune_OnPointerDown( ThisEvent.Object )" tooltip="Create New Root Prune" prompt="Create New Root Prune">
+					<MENUITEM name="tp_RooPruneWorks" shortcut="" image="$pennote1" onpointerdown="btnRootPruneWorks_OnPointerDown( ThisEvent.Object )" caption="Root Prune Works" prompt="Root Prune Works"/>
+				</TOOLBUTTON>
+				<TOOLBUTTON onpointerdown="btn_NewPlanting_onPointerDown ( ThisEvent.Object )" name="btn_Planting" shortcut="" image="$flag2_blue" tooltip="Planting Tool" prompt="Planting Tool"/>
+				<TOOLBUTTON command="modepan"/>
+				<TOOLBUTTON command="modezoomin"/>
+				<TOOLBUTTON command="modezoomout"/>
+				<TOOLBUTTON command="modeselect"/>
+				<TOOLBUTTON command="gpsenable"/>
+				<TOOLBUTTON command="modefeaturemove"/>
+				<TOOLBUTTON command="exit"/>
+			</TOOLBAR>
+		</TOOLBARS>
+		<SYSTEMOBJECTS>
+			<APPLICATION onstartup="appStartup();" onshutdown="//appShutdown();"/>
+			<MAP onselectionchanged="Map_onSelectionChanged();"/>
+		</SYSTEMOBJECTS>
+	</APPLET>
+	<SCRIPT src="AlburyTrees.js" language="JScript"/>
+</ArcPad>
