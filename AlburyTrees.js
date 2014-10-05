@@ -446,7 +446,6 @@ function NewTree_onLoad( oForm ){
 
 		showStreetText( true, oPage1C );
 
-
 		//g_Vacant = oPage1C("chkVacant").Value;
 		//Console.print ( "in form load 2: " + g_Vacant );
 
@@ -969,7 +968,7 @@ function NewTree_Page2_SetActive( oPage ){
 		oPage.Controls("cbx_fs").enabled = false;
 		oPage.Controls("cbx_fp").enabled = false;
 		oPage.Controls("cbx_fs").enabled = false;
-		oPage.Controls("cbx_fp").enabled = false;
+		oPage.Controls("cbx_p").enabled = false;
 
 		oPage.Controls("tbx_height").enabled = false;
 		oPage.Controls("txt_dbh").enabled = false;
@@ -977,6 +976,7 @@ function NewTree_Page2_SetActive( oPage ){
 		oPage.Controls("cb_WorkC").enabled = false;
 		oPage.Controls("cbx_works").enabled = false;
 		oPage.Controls("tbx_works").enabled = false;
+
 
 		//Console.print ( oPage.Controls("cbx_fs").ListIndex );
 	}
@@ -987,6 +987,7 @@ function NewTree_Page2_SetActive( oPage ){
 		oPage.Controls("cbx_TS").ListIndex = 1;
 		oPage.Controls("cbx_fp").ListIndex = 5;
 		oPage.Controls("cbx_fs").ListIndex = 5;
+		oPage.Controls("cbx_p").ListIndex = 5;
 
 		oPage.Controls("cbx_TA").enabled = true;
 		oPage.Controls("cbx_TH").enabled = true;
@@ -994,6 +995,7 @@ function NewTree_Page2_SetActive( oPage ){
 		oPage.Controls("cbx_TS").enabled = true;
 		oPage.Controls("cbx_fs").enabled = true;
 		oPage.Controls("cbx_fp").enabled = true;
+		oPage.Controls("cbx_p").enabled = true;
 
 		oPage.Controls("tbx_height").enabled = true;
 		oPage.Controls("txt_dbh").enabled = true;
