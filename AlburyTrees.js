@@ -1012,13 +1012,10 @@ function NewTree_Page2_SetActive( oPage ){
 		oPage.Controls("cb_WorkC").enabled = true;
 		oPage.Controls("cbx_works").enabled = true;
 		oPage.Controls("tbx_works").enabled = true;
-
-
 	}
-	
 }
 
-function NewTree_onOK( oForm ){
+function NewTree_onOK( oForm){
 	var oLayerRS = null
 	var oLayer = Map.Layers( g_sLayerName );
 	if ( oLayer == null ){
@@ -1038,8 +1035,9 @@ function NewTree_onOK( oForm ){
 	//debugger
 	//New Tree/Asset
 	//Add point to Layer and set attributes
-
-	if (!g_bChangeAudit){
+	Console.print ("fff " + Application.UserProperties("fromMaintFormTrueFalse"));
+ 
+	if (!g_bChangeAudit ){
 		oLayerRS.AddNew(g_oCurrentPoint);
 		//Console.print (oForm.Pages("PAGE1").Controls("tbx_id").Value);
 		oLayerRS.Fields("ASSET_ID").Value = g_intAssetID; // parseInt (oForm.Pages("PAGE1").Controls("tbx_id").Text);
@@ -2627,7 +2625,6 @@ function OnPagePicture_SetActive()
 }
 
 function InsertinTable( p_SQL ) {
-
 	try {
 		/*if ( g_sAXFFileName == "" ) { 
 			return;
