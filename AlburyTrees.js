@@ -371,6 +371,7 @@ function NewTree_onLoad( oForm ){
 	var oDS = OpenAXF(g_sAXFFileName);
 	var oRS;
 	fso = Application.CreateAppObject("file");
+
 	if ( !fso.Exists( g_sAXFFileName ) ){
 		Application.MessageBox ( "Required File not Found: " + g_sAXFFileName );
 		oDS.Close();
@@ -426,16 +427,15 @@ function NewTree_onLoad( oForm ){
 	oRS = oDS.Execute ( "SELECT Code as Value, Description as Text FROM [CVD_AUDITS_LUT_NATURE_STRIP_WIDTH] where is_hidden = 0 order by code;" );
 	LoadCombobox( oRS, ( oPage2C( "cb_NatureStrip" ) ) );
 
-
 	//Generate the Temporay Asset ID from Date
 	dt = new Date();
 	if ( g_bChangeAudit ) {
 		//Console.print ( "in form load: " + g_Vacant );
 		g_LoadedStatusValue = oForm.Pages( "PAGE1" ).Controls( "cb_CURRENT_ST" ).Value
 
-
 		oForm.Pages( "PAGE4" ).Activate();
-		LoadListBoxAudits( oPage4C("lb_Audits"), g_lAssetID );
+	
+		LoadListBoxAudits( oPage4C("lb_Audits"), g_lAssetID, oForm );
 		oPage1C("cb_streetPlanted").Enabled = false;
 		oPage1C("tb_HouseNum").Enabled = false;
 		oPage1C("cb_StreetN").Enabled = false;
@@ -821,7 +821,7 @@ function showStreetText( bShowTxt, oPage ){
 		oPage( "tb_StreetN" ).Enabled = false;
 }
 
-function LoadListBoxAudits( oListBox, lAssestID ){
+function LoadListBoxAudits( oListBox, lAssestID, oForm ){
 	var oDS = OpenAXF( g_sAXFFileName );
 	var sSQL = "SELECT AXF_OBJECTID, INS_DATE AS UTC_TIME FROM [AUDITS] where Asset_ID = " + lAssestID + " order by INS_DATE;";
 
@@ -839,11 +839,20 @@ function LoadListBoxAudits( oListBox, lAssestID ){
 		outString = sString + ", " + formatDate(oObject, "Short" );
 		oRS.MoveNext();
 	}
+
+	if ( ! oRS.Fields( "AXF_OBJECTID" ).Value ){
+
+		Application.MessageBox (g_lAssetID + " The last audit record was wrong or is corrupt.", apOkOnly, "Warning")
+		oForm.Close();
+		return;
+	}
+
 	oListBox.AddItem(sString,outString);
 	oListBox.ListIndex = oListBox.ListCount - 1;
 	oDS.Close();
 	oRS = null;
 	WaitCursor ( -1 );
+
 }
 
 function cbo_AssetStatus_onSelChange ( oCombo ){
