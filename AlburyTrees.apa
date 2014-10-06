@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ArcPad>
 	<APPLET name="AlburyTrees">
 		<FORMS>
@@ -287,7 +287,7 @@
 				<TOOLBUTTON name="btn_NewRootPrune" shortcut="" image="@rangefinderenable" onpointerdown="btnNewRootPrune_OnPointerDown( ThisEvent.Object )" tooltip="Create New Root Prune" prompt="Create New Root Prune">
 					<MENUITEM name="tp_RooPruneWorks" shortcut="" image="$pennote1" onpointerdown="btnRootPruneWorks_OnPointerDown( ThisEvent.Object )" caption="Root Prune Works" prompt="Root Prune Works"/>
 				</TOOLBUTTON>
-				<!--TOOLBUTTON onpointerdown="btn_NewPlanting_onPointerDown ( ThisEvent.Object )" name="btn_Planting" shortcut="" image="$flag2_blue" tooltip="Planting Tool" prompt="Planting Tool"/-->
+<!--TOOLBUTTON onpointerdown="btn_NewPlanting_onPointerDown ( ThisEvent.Object )" name="btn_Planting" shortcut="" image="$flag2_blue" tooltip="Planting Tool" prompt="Planting Tool"/-->
 				<TOOLBUTTON command="modepan"/>
 				<TOOLBUTTON command="modezoomin"/>
 				<TOOLBUTTON command="modezoomout"/>

@@ -956,6 +956,10 @@ function NewTree_Page1_KillActive( oPage ){
 }
 function NewTree_Page2_SetActive( oPage ){
 	
+	if ( g_bChangeAudit ){
+		//Console.print ("not going to load the new values...");
+		return;
+	}
 	oPage.Controls("cb_WorkC").ListIndex = 5;
 		//Console.print ( "gvacant: " + g_Vacant);
 
@@ -1035,7 +1039,6 @@ function NewTree_onOK( oForm){
 	//debugger
 	//New Tree/Asset
 	//Add point to Layer and set attributes
-	Console.print ("fff " + Application.UserProperties("fromMaintFormTrueFalse"));
  
 	if (!g_bChangeAudit ){
 		oLayerRS.AddNew(g_oCurrentPoint);
@@ -1244,7 +1247,7 @@ function NewTree_onOK( oForm){
 		}
 		sSQL = "";
 	}
-	//else { 
+	else { 
 		//Change, still added an entry to Audits table.
 		var oPage1C = oForm.Pages( "PAGE1" ).Controls;
 		var oPage2C = oForm.Pages( "PAGE2" ).Controls;
@@ -1343,7 +1346,7 @@ function NewTree_onOK( oForm){
 		//	MessageBox(sMessage + ex.Message);
 			AddToLog( sMessage + "NewTree_onOK_Update with sSQL = ", sSQL );
 		//}
-	//}
+	}
 
 	if (g_MadeTreeCurrent){
 		oDS.execute ( "update [proposed_tree] set check_ = 'false' where asset_id = " + oPage1C("tbx_id").Text + ";" );
@@ -1759,8 +1762,7 @@ function cbWorkC_onSelChange( oComboBox ){
 }
 
 function cbWorks_onSelChange( oComboBox ){
-
-	if ( oComboBox.Parent.Controls( "tbx_works" ).Text == "No works" ){
+	if ( oComboBox.Parent.Controls( "cbx_works" ).Text == "No works" ){
 		setTB( oComboBox.Parent.Controls( "tbx_works" ), oComboBox.Text );
 		return;
 	}
