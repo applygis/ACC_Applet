@@ -150,12 +150,20 @@ function btnNewTree_OnPointerDown( oButton ){
 	g_oCurrentPoint.Y = Map.PointerY;
 
 	var dt = new Date();
-	g_intAssetID = parseInt (pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString()));  
+	//g_intAssetID = parseInt (pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString()));  
+	g_intAssetID = parseInt (pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString()) + pad20( dt.getHours().toString())+ pad20(dt.getMinutes().toString()));  
 	
-	var ods = Map.Layers("ALBURYTREES").DataSource;
+	var ods = Map.Layers(g_sLayerName).DataSource;
 
 	if (ods.isOpen){
-		ods.Execute("INSERT INTO [ALBURYTREES] (ASSET_ID, AXF_STATUS, SHAPE_X, SHAPE_Y) VALUES (" + g_intAssetID + ", 1, " + Map.PointerX + ", " + Map.PointerY + ")");
+		Console.print (g_intAssetID);
+		if (g_intAssetID >= 2147483647){ //2336140810
+			Console.print ("need a new id");
+			return;
+		}
+		var insertSQL = "INSERT INTO [ALBURYTREES] (ASSET_ID, AXF_STATUS, SHAPE_X, SHAPE_Y) VALUES (" + g_intAssetID + ", 1, " + Map.PointerX + ", " + Map.PointerY + ");" 
+		Console.print (insertSQL);
+		ods.Execute( insertSQL );
 	}
 
 	Map.Refresh();
@@ -449,7 +457,7 @@ function NewTree_onLoad( oForm ){
 
 		oForm.Pages( "PAGE4" ).Activate();
 	
-		LoadListBoxAudits( oPage4C("lb_Audits"), g_lAssetID, oForm );
+		LoadListBoxAudits( oPage4C("lb_Audits"), g_intAssetID, oForm );
 		oPage1C("cb_streetPlanted").Enabled = false;
 		oPage1C("tb_HouseNum").Enabled = false;
 		oPage1C("cb_StreetN").Enabled = false;
@@ -476,7 +484,7 @@ function NewTree_onLoad( oForm ){
 	}else {
 //		g_intAssetID = parseInt (pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString()));  
 		//Console.print ("on load: " + g_intAssetID );
-		oForm.Pages( "PAGE1" ).Controls( "tbx_id" ).Value = pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString());
+		oForm.Pages( "PAGE1" ).Controls( "tbx_id" ).Value = g_intAssetID; // pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString());
 		oForm.Caption = "Create New Site/Asset";
 		oForm.Pages( "PAGE1" ).Controls("cb_CURRENT_ST").ListIndex = 2;
 
