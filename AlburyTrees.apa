@@ -299,7 +299,7 @@
 		</TOOLBARS>
 		<SYSTEMOBJECTS>
 			<APPLICATION onstartup="appStartup();" onshutdown="//appShutdown();"/>
-			<MAP onselectionchanged="Map_onSelectionChanged();"/>
+			<MAP onselectionchanged="Map_onSelectionChanged();" onopen="Map.Layers(&quot;ALBURYTREES&quot;).Editable = true;"/>
 		</SYSTEMOBJECTS>
 	</APPLET>
 	<SCRIPT src="AlburyTrees.js" language="JScript"/>

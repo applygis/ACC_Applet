@@ -140,12 +140,26 @@ function appStartup() {
 	if ( !oFile.Exists( g_sDataPath + "\\" + g_sLUT_Works_Datafiles) ){
 		oFile.Copy(g_sAppletPath + "\\" + g_sLUT_Works, g_sDataPath + "\\" + g_sLUT_Works_Datafiles);
 	}
+	
 }
 
 function btnNewTree_OnPointerDown( oButton ){
 	Application.UserProperties("MaintFormClose")  = true;
+	
 	g_oCurrentPoint.X = Map.PointerX;
 	g_oCurrentPoint.Y = Map.PointerY;
+
+	var dt = new Date();
+	g_intAssetID = parseInt (pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString()));  
+	
+	var ods = Map.Layers("ALBURYTREES").DataSource;
+
+	if (ods.isOpen){
+		ods.Execute("INSERT INTO [ALBURYTREES] (ASSET_ID, AXF_STATUS, SHAPE_X, SHAPE_Y) VALUES (" + g_intAssetID + ", 1, " + Map.PointerX + ", " + Map.PointerY + ")");
+	}
+
+	Map.Refresh();
+	ods.Close();
 
 	if ( !getBackgroundData( g_oCurrentPoint.X, g_oCurrentPoint.Y ) ){
 		return;
@@ -460,7 +474,7 @@ function NewTree_onLoad( oForm ){
 		
 		WaitCursor ( -1 );
 	}else {
-		g_intAssetID = parseInt (pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString()));  
+//		g_intAssetID = parseInt (pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString()));  
 		//Console.print ("on load: " + g_intAssetID );
 		oForm.Pages( "PAGE1" ).Controls( "tbx_id" ).Value = pad20( dt.getHours().toString() )+ pad20(dt.getMinutes().toString() )+ pad20(dt.getYear().toString())+ pad20(dt.getDate().toString()) + pad20((dt.getMonth() + 1).toString());
 		oForm.Caption = "Create New Site/Asset";
@@ -1041,20 +1055,34 @@ function NewTree_onOK( oForm){
 	//Add point to Layer and set attributes
  
 	if (!g_bChangeAudit ){
-		oLayerRS.AddNew(g_oCurrentPoint);
-		//Console.print (oForm.Pages("PAGE1").Controls("tbx_id").Value);
-		oLayerRS.Fields("ASSET_ID").Value = g_intAssetID; // parseInt (oForm.Pages("PAGE1").Controls("tbx_id").Text);
+		//oLayer.editable = false;
+/*		var tempDate = new Date();
+		var tDate = formatDate( tempDate, "Full" )
+		sSQL = "INSERT INTO ALBURYTREES (ASSET_ID, AXF_STATUS, SHAPE_X, SHAPE_Y) VALUES ( " + g_intAssetID + ", 1, " + g_oCurrentPoint.X + ", " + g_oCurrentPoint.Y + " );";
+
+		Console.print (sSQL);
+		oDS.Execute(sSQL);
+		oDS.Close();
+*/
+		//Console.print ("Added " + iCount + " rows");
+
+		//Console.print (oLayerRS.Bookmark);
+		//oLayerRS.AddNew(g_oCurrentPoint);
+		//oLayerRS.Fields("ASSET_ID").Value = g_intAssetID; // parseInt (oForm.Pages("PAGE1").Controls("tbx_id").Text);
 		//oLayerRS.Fields("AXF_STATUS").Value = 1;
 		//var tempDate = new Date();
-		//oLayerRS.Fields("AXF_TIMESTAMP").Value = tempDate;
-	
-		try{
+		//oLayerRS.Fields("AXF_TIMESTAMP").Value = formatDate( tempDate, "Full" );
+		
+		//oLayerRS.Update();
+/*		try {
 			oLayerRS.Update();
 		}
-		catch(ex){
-			Application.MessageBox("The layer could not be updated. " + ex.Message);
+		catch (ex){
+			AddToLog("Line 1056: There was an error updating the recordset after AddFeature and update of field values");
+			Application.MessageBox("There was an error updating the layers recordset.");
 			return;
 		}
+*/
 	}
 
 	var lAXFID = oLayerRS.Fields("AXF_OBJECTID").Value;
@@ -1063,7 +1091,6 @@ function NewTree_onOK( oForm){
 	try{
 		var sBot, botSQL;
 		if (oForm.Pages("PAGE1").Controls("chkVacant").Value){		
-			//Console.print ("line 953");
 			botSQL = "SELECT code FROM [CVD_AUDITS_CVD_BOTANICA] where DESCRIPTION = 'VACANT';";
 		}
 		else{
@@ -1081,9 +1108,11 @@ function NewTree_onOK( oForm){
 		//Console.print ("sBot length: " + sBot.length);
 	}
 	catch(ex){
-		AddToLog( "Error finding Botanical code. Aprrox.line 960", sSQL );
-		Application.MessageBox("Error Adding details to the Audit table. ln 976: : \n" + sSQL); // ex.Message);
+		AddToLog( "Error finding Botanical code. ", sSQL );
+		Application.MessageBox("Error Adding details to the Audit table: \n" + sSQL); // ex.Message);
+
 	}
+
 	/*try{
 		sSQL = "INSERT INTO MAINTENANCE (ASSET_ID,OPERATOR,CANOPY_LIFT,WEIGHT_REDUCTION,FORMATIVE_PRUNE,STRUCTURAL_PRUNE,PROPERTY_ASSET_CLEARANCE,DEAD_WOOD,MISTLETOE_REMOVAL,REMOVE,LV_WIRE_CL,HV_WIRE_CL,BROKENBRANCH,EPICORMICREMOVAL,MULCHREQUIRED,EXCLUDETARGET,TREESTAKEREMOVAL,INSTALLSTAKES,IRRIGATION,ROOTBALLMAINTENANCE,VISIBILITY,ABC_CLEARANCE,SERVICE_WIRE_CLEARANCE,HABITAT_PRUNE,REPLANT_LIST,COMMENTS,AXF_TIMESTAMP,AXF_STATUS) ";
 		var oPage1C = oForm.Pages( "PAGE1" ).Controls;
@@ -1247,7 +1276,7 @@ function NewTree_onOK( oForm){
 		}
 		sSQL = "";
 	}
-	else { 
+	//else { 
 		//Change, still added an entry to Audits table.
 		var oPage1C = oForm.Pages( "PAGE1" ).Controls;
 		var oPage2C = oForm.Pages( "PAGE2" ).Controls;
@@ -1346,21 +1375,21 @@ function NewTree_onOK( oForm){
 		//	MessageBox(sMessage + ex.Message);
 			AddToLog( sMessage + "NewTree_onOK_Update with sSQL = ", sSQL );
 		//}
-	}
+	//}
 
 	if (g_MadeTreeCurrent){
 		oDS.execute ( "update [proposed_tree] set check_ = 'false' where asset_id = " + oPage1C("tbx_id").Text + ";" );
 	}
-
+	
 	oReturn = null;
 	oDS.Close();
 	Map.Refresh( true );
 	g_bChangeAudit = false;
 	g_Vacant = false;
 	g_Redundant = false;
-
     g_LoadedStatusValue = "";
     g_MadeTreeCurrent = false;
+
 }
 
 function ELBInspectUpdate_onClick( oButton ) {
