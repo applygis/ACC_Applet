@@ -847,8 +847,8 @@ function LoadListBoxAudits( oListBox, lAssestID, oForm ){
 	var oDS = OpenAXF( g_sAXFFileName );
 	var sSQL = "SELECT AXF_OBJECTID, INS_DATE AS UTC_TIME FROM [AUDITS] where Asset_ID = " + lAssestID + " order by INS_DATE;";
 
-	var oRS= Application.CreateAppObject("RecordSet");
-	oRS = oDS.Execute (sSQL);
+	//var oRS= Application.CreateAppObject("RecordSet");
+	var oRS = oDS.Execute (sSQL);
 
 	oRS.MoveFirst();
 	var oObject;
@@ -878,15 +878,19 @@ function LoadListBoxAudits( oListBox, lAssestID, oForm ){
 }
 
 function cbo_AssetStatus_onSelChange ( oCombo ){
-	if (g_LoadedStatusValue == "Proposed" && oCombo.Value == "Current"){
+	//if (g_LoadedStatusValue == "Proposed" && oCombo.Value == "Current"){
+	if (oCombo.Value == "Current"){
 		g_MadeTreeCurrent = true;
+		//Console.print ( "onselchange: " + ( g_MadeTreeCurrent ) );
 	}
+	
 	if (oCombo.value == "Redundant"){
 		if ( Application.MessageBox ("Are you sure?", apYesNo, "Make Asset redundant.") == apYes){
 			g_Redundant = true;
 		}
 	}
 }
+	
 
 function btn_Change_onClick( oButton ){
 	g_bLoading = true;
@@ -908,7 +912,9 @@ function chk_Vacant_onClick ( oCheck ){
 	var oPage2C = oForm.Pages( "PAGE2" ).Controls;
 	var oPage3C = oForm.Pages( "PAGE3" ).Controls;
 //Console.print ("ocheck " + oCheck.Value);
+
 	if ( oCheck.Value ){
+
 		oPage1C("cb_Genus_Spec").enabled = false;
 		oPage1C("cb_Botanical").enabled = false;
 
@@ -918,6 +924,7 @@ function chk_Vacant_onClick ( oCheck ){
 		oPage2C("cbx_TS").enabled = false;
 
 		oForm.Pages( "PAGE2" ).Activate();
+
 		oPage2C("cbx_fs").listIndex = 5;
 		oPage2C("cbx_fp").listIndex = 5;
 
@@ -942,10 +949,22 @@ function chk_Vacant_onClick ( oCheck ){
 		oPage1C("cb_Genus_Spec").enabled = true;
 		oPage1C("cb_Botanical").enabled = true;
 
+		oForm.Pages( "PAGE2" ).Activate();
+		oPage2C("tb_Width").Text = 1;
+		oPage2C("txt_dbh").Text = 40;
+		oPage2C("tbx_height").Text = 2;
+
 		oPage2C("cbx_TA").enabled = true;
 		oPage2C("cbx_TH").enabled = true;
 		oPage2C("cbx_ule").enabled = true;
 		oPage2C("cbx_TS").enabled = true;	
+
+		oPage2C("cbx_TA").listIndex = 5;
+		oPage2C("cbx_TH").listIndex = 2;
+		oPage2C("cbx_ule").listIndex = 2;
+		oPage2C("cbx_TS").listIndex = 1;
+
+		oForm.Pages( "PAGE1" ).Activate();
 		g_fp = "";
 		g_fs = "";
 		g_ChangedToVacant = false;
@@ -1262,6 +1281,9 @@ function NewTree_onOK( oForm){
 		AddToLog( "Error on ln 1100: ", sSQL );
 	}*/
 
+	Console.clear();
+	Console.print (  oForm.Pages("PAGE1").Controls("cb_CURRENT_ST").Value );
+
 	if ( oForm.Pages("PAGE1").Controls("cb_CURRENT_ST").Value == "Proposed"){
 		try{
 			sSQL = "INSERT INTO PROPOSED_TREE (ASSET_ID, REQUESTEDBY, CHECK_, AXF_TIMESTAMP, AXF_STATUS) ";
@@ -1274,7 +1296,7 @@ function NewTree_onOK( oForm){
 			sSQL += "getDate(), 1";
 			sSQL += ");" ;
 
-			//Console.print (sSQL);
+			Console.print (sSQL);
 			oDS.Execute (sSQL);
 	
 		}
@@ -1384,9 +1406,15 @@ function NewTree_onOK( oForm){
 			AddToLog( sMessage + "NewTree_onOK_Update with sSQL = ", sSQL );
 		//}
 	//}
+	Console.print ("gmt: " + g_MadeTreeCurrent);
+	//if (g_MadeTreeCurrent == 'false'){
+		//Console.print ("equals string");
+		//oDS.execute ( "update [proposed_tree] set check_ = 'false' where asset_id = " + g_intAssetID + ";" );
+	//}
 
-	if (g_MadeTreeCurrent){
-		oDS.execute ( "update [proposed_tree] set check_ = 'false' where asset_id = " + oPage1C("tbx_id").Text + ";" );
+	if (g_MadeTreeCurrent == true){
+		Console.print ("equals boolean");
+		oDS.execute ( "update [proposed_tree] set check_ = 'false', AXF_STATUS = 2 where asset_id = " + g_intAssetID + ";" );
 	}
 	
 	oReturn = null;
