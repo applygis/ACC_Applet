@@ -352,6 +352,7 @@ function btn_AuditTree_onPointerDown( oButton ){
 function btn_GPSAudit( oToolButton ){
 
 }
+
 function btn_ChangeDetails_onPointerDown( oButton ){
 	g_bChangeAudit = true;
 	var oLayer = Map.Layers( g_sLayerName );
